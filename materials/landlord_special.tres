@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://q78i7o58b11c"]
+
+[ext_resource type="Texture2D" uid="uid://bv6cmlpjju4vb" path="res://materials/WoodFloor005_1K-PNG_Roughness.png" id="1_6f8b2"]
+
+[resource]
+roughness_texture = ExtResource("1_6f8b2")

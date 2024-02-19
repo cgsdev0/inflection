@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b21jywp15eqc3"]
+
+[ext_resource type="PackedScene" uid="uid://crnxo0hn53go1" path="res://props/kitchen.glb" id="1_o2ecv"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="kitchen" parent="." instance=ExtResource("1_o2ecv")]
+transform = Transform3D(1, 0, 0, 0, 0.93, 0, 0, 0, 1, -0.175241, 1.19351, 0)

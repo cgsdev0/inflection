@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbcyua68dk01v"]
+
+[ext_resource type="PackedScene" uid="uid://cws05nll1aipa" path="res://scenes/apartment.tscn" id="1_ms86o"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_aobv4"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_v134u"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_ov8fn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay2sw"]
+radius = 0.253924
+height = 1.8
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3fwyn"]
+
+[sub_resource type="Sky" id="Sky_pkuww"]
+sky_material = SubResource("ProceduralSkyMaterial_3fwyn")
+
+[sub_resource type="Environment" id="Environment_il7iu"]
+background_mode = 2
+sky = SubResource("Sky_pkuww")
+ambient_light_source = 3
+ambient_light_color = Color(0.517647, 0.517647, 0.517647, 1)
+ambient_light_sky_contribution = 0.01
+ambient_light_energy = 0.01
+reflected_light_source = 1
+ssil_enabled = true
+sdfgi_use_occlusion = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.0205
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.0711
+volumetric_fog_albedo = Color(0.258824, 0.258824, 0.258824, 1)
+volumetric_fog_detail_spread = 1.7411
+volumetric_fog_ambient_inject = 16.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_ms86o")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39885, 0)
+script = ExtResource("2_v134u")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43184, 0)
+script = ExtResource("2_aobv4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_ay2sw")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572009, 0)
+script = ExtResource("3_ov8fn")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CharacterBody3D"]
+light_color = Color(0.462745, 0.462745, 0.462745, 1)
+light_energy = 0.05
+omni_range = 2.0
+omni_attenuation = 0.31864
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_il7iu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683705, 3.00924, 3.79095)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166506, 2.98745, 0.137368)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92271, 3.0268, 2.55541)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66087, 3.01174, -3.53136)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68704, 2.98415, -4.23292)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98642, 2.55386, -0.843511)
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.988835, -0.0368878, 0.14438, 0, 0.968878, 0.24754, -0.149018, -0.244776, 0.95806, 0, 2.65293, 9.95761)
+visible = false
+light_color = Color(0.929412, 1, 1, 1)
+light_energy = 0.01

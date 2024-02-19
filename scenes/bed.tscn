@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmcaynkpsvynl"]
+
+[ext_resource type="PackedScene" uid="uid://cw1phwieo4wym" path="res://props/bed.glb" id="1_ku1jm"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_ku1jm")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.4986, 0, 1.01648)

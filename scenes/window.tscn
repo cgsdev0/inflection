@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxs2m7cb3emqx"]
+
+[ext_resource type="PackedScene" uid="uid://d4j41hxqpvk1t" path="res://props/window.glb" id="1_3oyud"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D"]
+operation = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0161209, 0.01474, 0)
+size = Vector3(1.25391, 1.54492, 1)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="window" parent="Node3D" instance=ExtResource("1_3oyud")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://kwsxrouorwnu"]
+
+[ext_resource type="PackedScene" uid="uid://b4nfab0gas47s" path="res://props/rug.glb" id="1_duajd"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="rug" parent="." instance=ExtResource("1_duajd")]

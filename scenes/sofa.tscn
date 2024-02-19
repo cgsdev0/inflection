@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bder736t40dqj"]
+
+[ext_resource type="PackedScene" uid="uid://cehvdgqh57x2u" path="res://props/sofa.glb" id="1_iay4l"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.348608)
+
+[node name="Root Scene" parent="." instance=ExtResource("1_iay4l")]
+transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, -1.43636, 0, 0.7806)

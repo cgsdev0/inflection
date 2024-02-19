@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq2k28rdpk1ta"]
+
+[ext_resource type="PackedScene" uid="uid://bsoa04lcujhju" path="res://props/toilet.glb" id="1_8w6j4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_8w6j4")]
