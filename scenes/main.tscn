@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://dbcyua68dk01v"]
+[gd_scene load_steps=18 format=3 uid="uid://dbcyua68dk01v"]
 
 [ext_resource type="PackedScene" uid="uid://cws05nll1aipa" path="res://scenes/apartment.tscn" id="1_ms86o"]
 [ext_resource type="Script" path="res://scripts/stretch.gd" id="2_8urfq"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_aobv4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_v134u"]
 [ext_resource type="Script" path="res://scripts/stretch_end.gd" id="3_dq3c0"]
+[ext_resource type="Script" path="res://scripts/unpack.gd" id="3_drxd2"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_ov8fn"]
+[ext_resource type="PackedScene" uid="uid://b4k3y4vf34thn" path="res://scenes/phone.tscn" id="8_qnqu2"]
 
 [sub_resource type="Animation" id="Animation_7lxvk"]
 resource_name = "stretch"
@@ -101,6 +103,16 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.270996)
 shape = SubResource("BoxShape3D_4cxh3")
 
+[node name="Unpack" type="Area3D" parent="House"]
+transform = Transform3D(-0.0604911, 0, -0.998169, 0, 1, 0, 0.998169, 0, -0.0604911, -2.42752, 0.868538, -1.77976)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_drxd2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="House/Unpack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.270996)
+shape = SubResource("BoxShape3D_4cxh3")
+
 [node name="StretchEnd" type="Area3D" parent="House"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107441, 0.868538, 1.45897)
 collision_layer = 4
@@ -114,6 +126,9 @@ shape = SubResource("BoxShape3D_fq4sg")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39885, 0)
 script = ExtResource("2_v134u")
+
+[node name="PhoneAnchor" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0459494, -0.018703, -0.095144)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92423, 1.34572, -5.33672)
@@ -151,5 +166,10 @@ visible = false
 light_color = Color(0.929412, 1, 1, 1)
 light_energy = 0.01
 
+[node name="Phone" parent="." instance=ExtResource("8_qnqu2")]
+unique_name_in_owner = true
+transform = Transform3D(0.492424, -4.3049e-08, 0.870356, -8.74228e-08, -1, 0, 0.870356, -7.60889e-08, -0.492424, -1.10765, 1.4435, 3.41454)
+
 [connection signal="body_entered" from="House/StretchStart" to="House/StretchStart" method="_on_body_entered"]
+[connection signal="body_entered" from="House/Unpack" to="House/Unpack" method="_on_body_entered"]
 [connection signal="body_entered" from="House/StretchEnd" to="House/StretchEnd" method="_on_body_entered"]

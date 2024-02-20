@@ -20,7 +20,10 @@ func _process(delta):
 	if !main_door && !GameState.stretched:
 		desc = ""
 		return
-	desc = "open door"
+	if open:
+		desc = "close door"
+	else:
+		desc = "open door"
 	
 func interact():
 	if !main_door && !GameState.stretched:

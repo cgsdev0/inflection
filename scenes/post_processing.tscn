@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnsahh5mrdtgt"]
+[gd_scene load_steps=19 format=3 uid="uid://bnsahh5mrdtgt"]
 
 [ext_resource type="Shader" path="res://shaders/post.gdshader" id="1_4okf4"]
 [ext_resource type="PackedScene" uid="uid://dbcyua68dk01v" path="res://scenes/main.tscn" id="2_lyvaf"]
+[ext_resource type="Script" path="res://scripts/input_mapper.gd" id="2_sb0jg"]
 [ext_resource type="FontFile" uid="uid://cwf35k5o4wft2" path="res://fonts/monogram.ttf" id="3_5yvoq"]
 [ext_resource type="Script" path="res://scripts/picker_label.gd" id="3_jhlkn"]
 [ext_resource type="Script" path="res://scripts/quicktime.gd" id="5_02dr2"]
@@ -130,7 +131,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = SubResource("Theme_0ewhn")
+script = ExtResource("2_sb0jg")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_xiosi")
@@ -153,8 +156,6 @@ render_target_update_mode = 4
 layout_mode = 1
 offset_right = 1.0
 offset_bottom = 13.0
-horizontal_alignment = 1
-vertical_alignment = 1
 script = ExtResource("3_jhlkn")
 
 [node name="GlobalHint" type="Label" parent="."]
@@ -174,15 +175,36 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.2
 anchor_top = 0.2
-anchor_right = 0.7
+anchor_right = 0.665278
 anchor_bottom = 0.4
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 text = "\"dialogue\""
 visible_characters = 0
 visible_characters_behavior = 1
 visible_ratio = 0.0
 script = ExtResource("6_wg7np")
+metadata/_edit_use_anchors_ = true
+
+[node name="Operator" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.621528
+anchor_top = 0.161111
+anchor_right = 0.947917
+anchor_bottom = 0.32037
+offset_left = -0.5
+offset_right = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+text = "\"dialogue\""
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Quicktime" type="TextureRect" parent="."]
 layout_mode = 1
@@ -196,6 +218,7 @@ offset_top = 16.0
 offset_right = 128.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("GradientTexture1D_h2yq1")
 script = ExtResource("5_02dr2")
 
@@ -233,6 +256,7 @@ anchor_bottom = 1.0
 offset_right = -116.76
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="Quicktime"]
@@ -244,6 +268,7 @@ anchor_bottom = 1.0
 offset_right = -137.24
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Fader" type="ColorRect" parent="."]
@@ -253,6 +278,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("7_d32t2")
 

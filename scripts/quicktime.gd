@@ -39,9 +39,11 @@ func _process(delta):
 		if abs($Label.anchor_left - 0.5) < 0.05:
 			$Label.add_theme_color_override("font_color", Color.GREEN)
 			resolve(true)
+			return
 		else:
 			$Label.add_theme_color_override("font_color", Color.RED)
 			resolve(false)
+			return
 
 	$Label.anchor_left += delta * direction * difficulty * 0.5
 	if $Label.anchor_left > 1.0:
@@ -51,11 +53,13 @@ func _process(delta):
 	if $Label.anchor_left < 0.0:
 		$Label.anchor_left = 0.0
 		stage += 1
-		if stage == 4:
-			resolve(false)
-			stopped = true
+		
 		direction = 1
 	if stage == 2:
 		$Label.add_theme_color_override("font_color", Color.YELLOW)
 	elif stage == 3:
 		$Label.add_theme_color_override("font_color", Color.RED)
+	elif stage == 4:
+		$Label.add_theme_color_override("font_color", Color.RED)
+		stopped = true
+		resolve(false)

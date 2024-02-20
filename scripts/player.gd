@@ -48,6 +48,9 @@ func _input(event):
 func _update_mouselook():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
+	if GameState.jebaited:
+		GameState.jebaited = false
+		return
 	_mouse_position *= GameState.sensitivity
 	var yaw = _mouse_position.x
 	var pitch = _mouse_position.y
@@ -68,6 +71,8 @@ func _process(delta):
 	else:
 		$OmniLight3D.show()
 	if GameState.in_dialogue:
+		velocity = Vector3.ZERO
+		speed = 0
 		return
 	var desired = Vector3.ZERO
 	if !$RemoteTransform3D.active || $RemoteTransform3D.lerpTimer < 1.0:

@@ -1,8 +1,84 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcry85bv1yiuc"]
+[gd_scene load_steps=12 format=3 uid="uid://bcry85bv1yiuc"]
 
+[ext_resource type="Script" path="res://scripts/shower.gd" id="1_dsg3c"]
 [ext_resource type="PackedScene" uid="uid://b7ks8nnbpo8rc" path="res://props/shower.glb" id="1_rmsh4"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_rawqk"]
+[ext_resource type="Texture2D" uid="uid://bp0qgnpmdj53s" path="res://materials/smoke.png" id="4_4unk0"]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vc246"]
+size = Vector3(1.021, 1.11902, 0.575684)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_thovf"]
+direction = Vector3(0, 0, -1)
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfedq"]
+transparency = 1
+blend_mode = 1
+shading_mode = 2
+albedo_color = Color(0.364706, 0.611765, 0.611765, 0.133333)
+
+[sub_resource type="SphereMesh" id="SphereMesh_p2q1n"]
+material = SubResource("StandardMaterial3D_lfedq")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lpb4m"]
+lifetime_randomness = 0.14
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.3
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu8be"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.0980392)
+albedo_texture = ExtResource("4_4unk0")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_f2d2y"]
+material = SubResource("StandardMaterial3D_xu8be")
+
+[node name="Node3D" type="Area3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_dsg3c")
 
 [node name="shower" parent="." instance=ExtResource("1_rmsh4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="CameraController" type="RemoteTransform3D" parent="."]
+transform = Transform3D(-0.977431, 0, -0.211257, 0, 1, 0, 0.211257, 0, -0.977431, -0.227362, 0.387911, 0.0901119)
+script = ExtResource("2_rawqk")
+
+[node name="CameraController2" type="RemoteTransform3D" parent="."]
+transform = Transform3D(0.40526, 0.354634, -0.842615, 0.110784, 0.895851, 0.430322, 0.907464, -0.267741, 0.323765, -0.227362, 0.387911, 0.0901119)
+script = ExtResource("2_rawqk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.072998, 0.0595093, 0.932102)
+shape = SubResource("BoxShape3D_vc246")
+
+[node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199324, -0.119584, 0.992338)
+
+[node name="Water" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19983, 0.548709, 0.870697)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_thovf")
+draw_pass_1 = SubResource("SphereMesh_p2q1n")
+
+[node name="Steam" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19653, -0.837971, 0.574364)
+emitting = false
+lifetime = 10.0
+process_material = SubResource("ParticleProcessMaterial_lpb4m")
+draw_pass_1 = SubResource("QuadMesh_f2d2y")

@@ -13,7 +13,6 @@ func _ready():
 func start_sequence():
 	await get_tree().create_timer(2.0).timeout
 	GameState.start_fade.emit(false)
-	await get_tree().create_timer(1.0).timeout
 	await GameState.fade_finished
 	settled_in()
 	
@@ -46,6 +45,8 @@ func back_to_sleep():
 		"nevermind. goodnight, world.",
 		"fuck this. i'm going back to sleep.", 
 		"my heart is pounding like crazy. maybe i should sleep a bit more...",
+		"it's honestly just not fair.",
+		"...<break>it should have been me.",
 		"one more snooze. then i'll start my day.",
 		"urrgghghh... nope. not happening."
 		].pick_random())
@@ -56,11 +57,15 @@ func zzzzzz():
 	$CameraController.active = true
 	await get_tree().create_timer(1.0).timeout
 	GameState.start_fade.emit(true)
+	await GameState.fade_finished
 	zzzzzz2()
 
 func zzzzzz2():
+	for node in get_tree().get_nodes_in_group("switches"):
+		node.reset()
+	GameState.showered = false
 	$CameraController.active = true
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	start_sequence()
 	
 func wake_up():
@@ -69,6 +74,7 @@ func wake_up():
 	GameState.show_dialogue.emit([
 		"okay, i'm up. now i just need to get out of bed...",
 		"what time is it even? what *day* is it?",
+		"here we go again.",
 		"i feel like shit. i should probably get up though..."
 		].pick_random())
 	await GameState.dialogue_finished
@@ -90,6 +96,8 @@ func interact():
 	await get_tree().create_timer(2.0).timeout
 	GameState.show_dialogue.emit([
 		"tomorrow. tomorrow i get back on track. maybe. whatever.",
+		"i'm just not ready.",
+		"i just need to hard reset my brain.",
 		"...<break>g'night.",
 		].pick_random())
 	await GameState.dialogue_finished

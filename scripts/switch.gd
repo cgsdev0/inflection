@@ -12,6 +12,10 @@ extends Node3D
 func _ready():
 	update()
 	
+func reset():
+	enabled = false
+	update()
+	
 func update():
 	if controls:
 		controls.visible = enabled

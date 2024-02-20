@@ -18,4 +18,5 @@ var once = false
 func _on_body_entered(body):
 	if !once:
 		once = true
-		call_deferred("undo_stretch")
+		if !GameState.stretched:
+			call_deferred("undo_stretch")

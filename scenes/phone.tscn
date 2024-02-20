@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4k3y4vf34thn"]
+
+[ext_resource type="Material" uid="uid://cpm5io36ldutu" path="res://materials/phone_on.tres" id="1_4ucm2"]
+[ext_resource type="Script" path="res://scripts/phone.gd" id="1_oletq"]
+[ext_resource type="PackedScene" uid="uid://c33uu82350sxo" path="res://props/phone3.glb" id="1_rryxk"]
+[ext_resource type="PackedScene" uid="uid://cfhxj7bxiopth" path="res://scenes/phone_screen.tscn" id="2_7kihe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3gay"]
+size = Vector3(0.1, 0.1, 0.150061)
+
+[node name="Node3D" type="Area3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_oletq")
+
+[node name="SubViewport" type="SubViewport" parent="." groups=["phone"]]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(256, 512)
+
+[node name="Control" parent="SubViewport" instance=ExtResource("2_7kihe")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="phone3" parent="." instance=ExtResource("1_rryxk")]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0)
+
+[node name="Phone" parent="phone3/RootNode" index="0"]
+surface_material_override/3 = ExtResource("1_4ucm2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00166626)
+shape = SubResource("BoxShape3D_u3gay")
+
+[node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0382859, 0)
+
+[editable path="phone3"]
