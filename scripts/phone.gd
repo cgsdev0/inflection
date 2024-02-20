@@ -27,6 +27,8 @@ var lerp_timer = 1.0
 var lerpFrom
 
 func _process(delta):
+	if !GameState.stretched:
+		return
 	if GameState.holding_phone:
 		return
 	lerp_timer += delta * 1.6

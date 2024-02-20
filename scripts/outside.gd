@@ -18,9 +18,7 @@ func interact():
 	if GameState.called || (GameState.stretched && GameState.panic_attack):
 		if !GameState.showered:
 			GameState.show_dialogue.emit([
-				"i smell awful.",
 				"i need a shower first.",
-				"maybe later."
 			].pick_random())
 			return
 		elif !GameState.called:
