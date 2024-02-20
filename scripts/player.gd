@@ -10,7 +10,6 @@ const DECEL = 8.0
 var speed = 0.0
 var last = Vector3.ZERO
 
-var picked
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var inside = false
@@ -66,7 +65,9 @@ func _process(delta):
 	var desired = Vector3.ZERO
 	_update_mouselook()
 	if !$RemoteTransform3D.active:
+		GameState.picked = null
 		return
+	pick_things()
 		
 	var fly_hack = OS.is_debug_build() && Input.is_key_pressed(KEY_SHIFT)
 	
@@ -98,10 +99,16 @@ func _process(delta):
 	var prev = global_transform.origin
 	move_and_slide()
 
-#	var dest = global_transform.origin
-#	dest.y = -1
-#	var query = PhysicsRayQueryParameters3D.create(global_transform.origin, dest)
-#	var result = space_state.intersect_ray(query)
-#	var angle = 10
-#	if result:
-#		angle = result.normal.angle_to(Vector3.UP)
+func pick_things():
+	if $RemoteTransform3D/RayCast3D.is_colliding():
+		GameState.picked = $RemoteTransform3D/RayCast3D.get_collider()
+		var p = GameState.picked.global_position
+		var anchor = GameState.picked.get_node("Anchor")
+		if anchor != null:
+			p = anchor.global_position
+		GameState.picked_loc = get_viewport().get_camera_3d().unproject_position(p)
+	else:
+		GameState.picked = null
+	if Input.is_action_just_pressed("interact"):
+		if GameState.picked && GameState.picked.has_method("interact"):
+			GameState.picked.interact()

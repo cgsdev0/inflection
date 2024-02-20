@@ -1,6 +1,7 @@
-[gd_scene load_steps=47 format=3 uid="uid://cpdy2gf0d6w4l"]
+[gd_scene load_steps=50 format=3 uid="uid://cpdy2gf0d6w4l"]
 
 [ext_resource type="Material" uid="uid://q78i7o58b11c" path="res://materials/landlord_special.tres" id="1_005i6"]
+[ext_resource type="Script" path="res://scripts/outside.gd" id="2_plkra"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tl4hf"]
 resource_name = "07___Default"
@@ -704,6 +705,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_p2wuv")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_a5cfl"]
+size = Vector3(0.891968, 1.80371, 0.19043)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_irmji"]
+size = Vector3(0.937134, 1.96533, 0.0722656)
+
 [node name="Node3D" type="CSGCombiner3D"]
 operation = 2
 
@@ -750,8 +757,11 @@ mesh = SubResource("ArrayMesh_1tqgn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_005i6")
 
-[node name="Hinge" type="Node3D" parent="."]
+[node name="Hinge" type="Area3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_plkra")
 
 [node name="outer_door" type="Node3D" parent="Hinge"]
 transform = Transform3D(0.900288, 0, 0.435294, 0, 1, 0, -0.435294, 0, 0.900288, -81, 0, -94.0631)
@@ -813,3 +823,16 @@ skeleton = NodePath("")
 [node name="Box016" type="MeshInstance3D" parent="Hinge/outer_door/Node3D"]
 mesh = SubResource("ArrayMesh_upcis")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -46.3196, 110.885, 0)
+shape = SubResource("BoxShape3D_a5cfl")
+
+[node name="Anchor" type="Node3D" parent="Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.8617, 97.5124, 2.38851)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461975, 1.0451, 0.012207)
+shape = SubResource("BoxShape3D_irmji")

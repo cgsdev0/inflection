@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfhlcigtmr66d"]
+[gd_scene load_steps=23 format=3 uid="uid://dfhlcigtmr66d"]
 
 [ext_resource type="PackedScene" uid="uid://4egtknhrh3fw" path="res://props/inner_door.glb" id="1_tbtq3"]
 [ext_resource type="Material" uid="uid://q78i7o58b11c" path="res://materials/landlord_special.tres" id="1_tg2rp"]
+[ext_resource type="Script" path="res://scripts/inner_door.gd" id="3_22t8x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tl4hf"]
 resource_name = "07___Default"
@@ -201,6 +202,102 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lwabq")
 
+[sub_resource type="Animation" id="Animation_xa70d"]
+resource_name = "open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1.86607, 0.63728),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StaticBody3D/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ekwrt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StaticBody3D/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kr1ii"]
+resource_name = "close"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1.86607, 0.63728),
+"update": 0,
+"values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StaticBody3D/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1sxp1"]
+_data = {
+"RESET": SubResource("Animation_ekwrt"),
+"close": SubResource("Animation_kr1ii"),
+"open": SubResource("Animation_xa70d")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_asqau"]
+size = Vector3(0.637326, 1.965, 0.181)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gnsma"]
+size = Vector3(0.937, 1.965, 0.109619)
+
 [node name="Node3D" type="CSGCombiner3D"]
 operation = 2
 
@@ -252,3 +349,29 @@ transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 
 [node name="Root Scene" parent="Hinge" instance=ExtResource("1_tbtq3")]
 transform = Transform3D(49.9982, 0, 0.165063, 0, 47.5, 0, -0.423237, 0, 19.4993, -3.56997, 0, 0.893408)
+
+[node name="StaticBody3D" type="Area3D" parent="Hinge"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_22t8x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hinge/StaticBody3D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_1sxp1")
+}
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Hinge/StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -61.1812, 104.51, -0.103756)
+shape = SubResource("BoxShape3D_asqau")
+
+[node name="Anchor" type="Node3D" parent="Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, -79.9333, 95.1242, 1.29745)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461975, 1.0451, -0.0010376)
+shape = SubResource("BoxShape3D_gnsma")

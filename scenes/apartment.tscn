@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cws05nll1aipa"]
+[gd_scene load_steps=18 format=3 uid="uid://cws05nll1aipa"]
 
 [ext_resource type="PackedScene" uid="uid://bxs2m7cb3emqx" path="res://scenes/window.tscn" id="1_ao1cc"]
 [ext_resource type="Material" uid="uid://bc8dlk2lktqj6" path="res://scenes/walls.tres" id="1_drch6"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://kwsxrouorwnu" path="res://scenes/rug.tscn" id="12_3n6a0"]
 [ext_resource type="PackedScene" uid="uid://bq2k28rdpk1ta" path="res://scenes/toilet.tscn" id="13_y0tb8"]
 [ext_resource type="PackedScene" uid="uid://bcry85bv1yiuc" path="res://scenes/shower.tscn" id="14_mq61d"]
+[ext_resource type="PackedScene" uid="uid://7ayk1xtukt3e" path="res://scenes/switch.tscn" id="16_lwghl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4j6n"]
 albedo_texture = ExtResource("4_bum3p")
@@ -34,6 +35,8 @@ size = Vector3(2.90831, 1.88324, 3.0024)
 [node name="Walls" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.377686, 1.99594, 0.0267525)
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 size = Vector3(8.75537, 4, 13.0535)
 material = ExtResource("1_drch6")
 
@@ -141,6 +144,7 @@ transform = Transform3D(-4.37114e-08, -3.82137e-15, -1.5, 8.74228e-08, -1, 0, 1,
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Kitchen/Unit"]
 transform = Transform3D(1.15385, 6.60024e-15, 2.50617e-08, -3.82137e-15, 1, -8.74228e-08, -4.34016e-08, 8.74228e-08, 1, 4.94395, 1.05213, 5.66241)
+use_collision = true
 size = Vector3(0.759644, 0.0673828, 1.38)
 
 [node name="LowerCab2" parent="Kitchen/Unit" instance=ExtResource("10_ljvk8")]
@@ -154,10 +158,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86405, 0, -4.76837e-07)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Kitchen/Unit2"]
 transform = Transform3D(1.15385, 6.60024e-15, 2.50617e-08, -3.82137e-15, 1, -8.74228e-08, -4.34016e-08, 8.74228e-08, 1, 5.59365, 1.05213, 5.45131)
+use_collision = true
 size = Vector3(1.01323, 0.0673828, 1.39833)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Kitchen/Unit2"]
 transform = Transform3D(1.15385, 6.60024e-15, 2.50617e-08, -3.82137e-15, 1, -8.74228e-08, -4.34016e-08, 8.74228e-08, 1, 5.4056, 1.05213, 7.18586)
+use_collision = true
 size = Vector3(0.687279, 0.0673828, 2.0561)
 
 [node name="LowerCab2" parent="Kitchen/Unit2" instance=ExtResource("10_ljvk8")]
@@ -181,5 +187,86 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3.02084, 0.328683, 2.75208)
 [node name="Toilet" parent="." instance=ExtResource("13_y0tb8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54138, 0.349243, -1.71653)
 
-[node name="Node3D2" parent="." instance=ExtResource("14_mq61d")]
+[node name="Shower" parent="." instance=ExtResource("14_mq61d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24693, 1.4594, -0.520288)
+
+[node name="BRSwitch" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.742263, 1.56909, -3.72994)
+controls = NodePath("../BR1Light")
+
+[node name="BR1Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68704, 2.98415, -4.23292)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="BRSwitch2" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.976069, 1.56909, -2.691)
+controls = NodePath("../BR2Light")
+
+[node name="BR2Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66087, 3.01174, -3.53136)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="HallSwitch" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598585, 1.56909, 0.550603)
+controls = NodePath("../HallLight")
+description = "hall"
+
+[node name="HallLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166506, 2.98745, 0.137368)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="LivingRoomSwitch" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598585, 1.56909, 0.707382)
+controls = NodePath("../LivingRoomLight")
+description = "living room"
+
+[node name="LivingRoomLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683705, 3.00924, 3.79095)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="KitchenSwitch" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598585, 1.56909, 0.863738)
+controls = NodePath("../KitchenLight")
+description = "kitchen"
+
+[node name="KitchenLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92271, 3.0268, 2.55541)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126
+
+[node name="BathroomSwitch" parent="." node_paths=PackedStringArray("controls") instance=ExtResource("16_lwghl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.720302, 1.56909, 0.451716)
+controls = NodePath("../BathroomLight")
+
+[node name="BathroomLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98642, 2.55386, -0.843511)
+visible = false
+light_color = Color(0.8, 0.752941, 0.705882, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 5.915
+omni_attenuation = 0.406126

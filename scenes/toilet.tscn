@@ -1,7 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq2k28rdpk1ta"]
+[gd_scene load_steps=5 format=3 uid="uid://bq2k28rdpk1ta"]
 
 [ext_resource type="PackedScene" uid="uid://bsoa04lcujhju" path="res://props/toilet.glb" id="1_8w6j4"]
+[ext_resource type="Script" path="res://scripts/toilet.gd" id="2_ke2q6"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_3fksw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2gw8e"]
+size = Vector3(0.724976, 1.11464, 0.586304)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Root Scene" parent="." instance=ExtResource("1_8w6j4")]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_ke2q6")
+
+[node name="CameraController" type="RemoteTransform3D" parent="Area3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.33333, 0)
+script = ExtResource("3_3fksw")
+
+[node name="Anchor" type="Node3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.740832, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000359774, 0.390409, -0.0206529)
+shape = SubResource("BoxShape3D_2gw8e")

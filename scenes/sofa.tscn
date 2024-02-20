@@ -1,9 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://bder736t40dqj"]
+[gd_scene load_steps=7 format=3 uid="uid://bder736t40dqj"]
 
 [ext_resource type="PackedScene" uid="uid://cehvdgqh57x2u" path="res://props/sofa.glb" id="1_iay4l"]
+[ext_resource type="Script" path="res://scripts/couch.gd" id="2_jrb4d"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_y3s1q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pjgl8"]
+size = Vector3(0.724976, 1.11464, 0.522217)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_elmrg"]
+size = Vector3(2.5282, 1, 0.94519)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xkfo5"]
+size = Vector3(0.844055, 1, 1.85074)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.348608)
 
 [node name="Root Scene" parent="." instance=ExtResource("1_iay4l")]
 transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, -1.43636, 0, 0.7806)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_jrb4d")
+
+[node name="CameraController" type="RemoteTransform3D" parent="Area3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4732, 1.05384, 0.981921)
+script = ExtResource("3_y3s1q")
+
+[node name="Anchor" type="Node3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64861, 0.536505, 0.947201)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45259, 0.390409, 0.846279)
+shape = SubResource("BoxShape3D_pjgl8")
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775194, 0, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_jrb4d")
+
+[node name="CameraController" type="RemoteTransform3D" parent="Area3D2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4732, 1.05384, 0.981921)
+script = ExtResource("3_y3s1q")
+
+[node name="Anchor" type="Node3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64861, 0.536505, 0.947201)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45259, 0.390409, 0.846279)
+shape = SubResource("BoxShape3D_pjgl8")
+
+[node name="Area3D3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.780427, 0, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_jrb4d")
+
+[node name="CameraController" type="RemoteTransform3D" parent="Area3D3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4732, 1.05384, 0.981921)
+script = ExtResource("3_y3s1q")
+
+[node name="Anchor" type="Node3D" parent="Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64861, 0.536505, 0.947201)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45259, 0.390409, 0.846279)
+shape = SubResource("BoxShape3D_pjgl8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3948, 0.326622, 0.851851)
+shape = SubResource("BoxShape3D_elmrg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55273, 0.326622, 1.30463)
+shape = SubResource("BoxShape3D_xkfo5")

@@ -1,8 +1,102 @@
-[gd_scene load_steps=2 format=3 uid="uid://b21jywp15eqc3"]
+[gd_scene load_steps=8 format=3 uid="uid://b21jywp15eqc3"]
 
 [ext_resource type="PackedScene" uid="uid://crnxo0hn53go1" path="res://props/kitchen.glb" id="1_o2ecv"]
+[ext_resource type="Script" path="res://scripts/useless.gd" id="2_0g70p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7l453"]
+size = Vector3(1.66449, 0.960938, 0.696777)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c4msq"]
+size = Vector3(0.833557, 0.528687, 0.797836)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpttn"]
+size = Vector3(0.833557, 0.528687, 0.797836)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w22fm"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dr5k3"]
+size = Vector3(0.612659, 0.267383, 0.182715)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="kitchen" parent="." instance=ExtResource("1_o2ecv")]
 transform = Transform3D(1, 0, 0, 0, 0.93, 0, 0, 0, 1, -0.175241, 1.19351, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0455627, 0.287583, 0.151611)
+shape = SubResource("BoxShape3D_7l453")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_0g70p")
+desc = "check freezer"
+dialogue = "i guess i finished those pizza rolls already."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476762, 1.70212, 0.0960922)
+shape = SubResource("BoxShape3D_c4msq")
+
+[node name="Anchor" type="Node3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188721, 1.6449, -0.369671)
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.544241, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_0g70p")
+desc = "check fridge"
+dialogue = "just a bunch of condiments."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476762, 1.70212, 0.0960922)
+shape = SubResource("BoxShape3D_kpttn")
+
+[node name="Anchor" type="Node3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188721, 1.6449, -0.369671)
+
+[node name="Area3D3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.297621, 1.21045, 0.22635)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_0g70p")
+desc = "make tea"
+dialogue = "i don't even really like tea."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D3"]
+shape = SubResource("BoxShape3D_w22fm")
+
+[node name="Anchor" type="Node3D" parent="Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135056, -0.103229)
+
+[node name="Area3D4" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.576731, 1.151, -0.0352082)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_0g70p")
+desc = "make eggs"
+dialogue = "i think they all went bad."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D4"]
+shape = SubResource("BoxShape3D_w22fm")
+
+[node name="Anchor" type="Node3D" parent="Area3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0180275, 0.0490015, 0.010554)
+
+[node name="Area3D5" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.576731, 1.151, -0.293322)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_0g70p")
+desc = "preheat oven"
+dialogue = "what if i forget to turn it off? better not risk it."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149847, -0.163184, 0.0586426)
+shape = SubResource("BoxShape3D_dr5k3")
+
+[node name="Anchor" type="Node3D" parent="Area3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135753, -0.140832, 0.0697305)

@@ -24,13 +24,16 @@ ambient_light_energy = 0.01
 reflected_light_source = 1
 ssil_enabled = true
 sdfgi_use_occlusion = true
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 0.0205
+fog_enabled = true
+fog_light_color = Color(0.592157, 0.627451, 0.658824, 1)
+fog_aerial_perspective = 0.516
 fog_sky_affect = 0.0
-volumetric_fog_density = 0.0711
-volumetric_fog_albedo = Color(0.258824, 0.258824, 0.258824, 1)
+volumetric_fog_density = 0.4597
+volumetric_fog_albedo = Color(0.443137, 0.443137, 0.443137, 1)
 volumetric_fog_detail_spread = 1.7411
 volumetric_fog_ambient_inject = 16.0
+adjustment_enabled = true
+adjustment_saturation = 0.7
 
 [node name="Node3D" type="Node3D"]
 
@@ -51,6 +54,14 @@ shape = SubResource("CapsuleShape3D_ay2sw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572009, 0)
 script = ExtResource("3_ov8fn")
 
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/RemoteTransform3D"]
+target_position = Vector3(0, 0, -1)
+collision_mask = 2
+hit_back_faces = false
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 1
+
 [node name="OmniLight3D" type="OmniLight3D" parent="CharacterBody3D"]
 light_color = Color(0.462745, 0.462745, 0.462745, 1)
 light_energy = 0.05
@@ -59,54 +70,6 @@ omni_attenuation = 0.31864
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_il7iu")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683705, 3.00924, 3.79095)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
-
-[node name="OmniLight3D6" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166506, 2.98745, 0.137368)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92271, 3.0268, 2.55541)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66087, 3.01174, -3.53136)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68704, 2.98415, -4.23292)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98642, 2.55386, -0.843511)
-light_color = Color(0.8, 0.752941, 0.705882, 1)
-light_energy = 0.6
-shadow_enabled = true
-omni_range = 5.915
-omni_attenuation = 0.406126
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.988835, -0.0368878, 0.14438, 0, 0.968878, 0.24754, -0.149018, -0.244776, 0.95806, 0, 2.65293, 9.95761)

@@ -1,8 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://by1xu0dald44l"]
+[gd_scene load_steps=5 format=3 uid="uid://by1xu0dald44l"]
 
 [ext_resource type="PackedScene" uid="uid://cbkl6drwoygob" path="res://props/bookshelf.glb" id="1_0iak3"]
+[ext_resource type="Script" path="res://scripts/useless.gd" id="2_o5go5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_luxrl"]
+size = Vector3(1.26953, 1.18799, 0.518494)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jdxle"]
+size = Vector3(1.47046, 1, 0.453125)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Root Scene" parent="." instance=ExtResource("1_0iak3")]
 transform = Transform3D(0.85, 0, 0, 0, 0.65, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_o5go5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0243019, 1.37247, 0.0843811)
+shape = SubResource("BoxShape3D_luxrl")
+
+[node name="Anchor" type="Node3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0163102, 1.57744, 0.0643009)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0169678, 1.21335, -0.00292969)
+shape = SubResource("BoxShape3D_jdxle")
