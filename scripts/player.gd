@@ -24,12 +24,15 @@ func enable_collider():
 func activate_camera():
 	$RemoteTransform3D.active = true
 	
+@onready var start = global_transform
+
+func warp():
+	global_transform = start
+	
 func _ready():
 	floor_snap_length = 1.0
 	floor_max_angle = 0.9 # 0.785398
-
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	activate_camera()
 
 var _mouse_position = Vector2(0.0, 0.0)
 var _total_pitch = 0.0
@@ -44,8 +47,6 @@ func _input(event):
 		
 func _update_mouselook():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-		return
-	if !$RemoteTransform3D.active:
 		return
 	_mouse_position *= GameState.sensitivity
 	var yaw = _mouse_position.x
@@ -62,11 +63,17 @@ func _update_mouselook():
 
 	
 func _process(delta):
-	var desired = Vector3.ZERO
-	_update_mouselook()
 	if !$RemoteTransform3D.active:
+		$OmniLight3D.hide()
+	else:
+		$OmniLight3D.show()
+	if GameState.in_dialogue:
+		return
+	var desired = Vector3.ZERO
+	if !$RemoteTransform3D.active || $RemoteTransform3D.lerpTimer < 1.0:
 		GameState.picked = null
 		return
+	_update_mouselook()
 	pick_things()
 		
 	var fly_hack = OS.is_debug_build() && Input.is_key_pressed(KEY_SHIFT)
@@ -103,7 +110,7 @@ func pick_things():
 	if $RemoteTransform3D/RayCast3D.is_colliding():
 		GameState.picked = $RemoteTransform3D/RayCast3D.get_collider()
 		var p = GameState.picked.global_position
-		var anchor = GameState.picked.get_node("Anchor")
+		var anchor = GameState.picked.get_node_or_null("Anchor")
 		if anchor != null:
 			p = anchor.global_position
 		GameState.picked_loc = get_viewport().get_camera_3d().unproject_position(p)

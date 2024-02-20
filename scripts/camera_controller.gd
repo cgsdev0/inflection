@@ -6,6 +6,10 @@ var lerpFrom = Transform3D()
 var lerpTimer = 1.0
 var prev = null
 
+var skip = false
+func skip_a_lerp():
+	skip = true
+	
 func previous_camera():
 	if prev:
 		prev.active = true
@@ -14,6 +18,9 @@ func _set_active(new_active):
 	if !active && new_active:
 		lerpFrom = get_viewport().get_camera_3d().global_transform
 		lerpTimer = 0.0
+		if skip:
+			skip = false
+			lerpTimer = 1.0
 		if is_instance_of(get_viewport().get_camera_3d().controller, CameraController):
 			get_viewport().get_camera_3d().controller.active = false
 			prev = get_viewport().get_camera_3d().controller

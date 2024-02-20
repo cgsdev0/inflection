@@ -1,9 +1,54 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbcyua68dk01v"]
+[gd_scene load_steps=16 format=3 uid="uid://dbcyua68dk01v"]
 
 [ext_resource type="PackedScene" uid="uid://cws05nll1aipa" path="res://scenes/apartment.tscn" id="1_ms86o"]
+[ext_resource type="Script" path="res://scripts/stretch.gd" id="2_8urfq"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_aobv4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_v134u"]
+[ext_resource type="Script" path="res://scripts/stretch_end.gd" id="3_dq3c0"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_ov8fn"]
+
+[sub_resource type="Animation" id="Animation_7lxvk"]
+resource_name = "stretch"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(3.73213, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_a7aqr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dq8mr"]
+_data = {
+"RESET": SubResource("Animation_a7aqr"),
+"stretch": SubResource("Animation_7lxvk")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cxh3"]
+size = Vector3(1, 1, 0.458008)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fq4sg"]
+size = Vector3(1, 1, 0.458008)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay2sw"]
 radius = 0.253924
@@ -37,14 +82,43 @@ adjustment_saturation = 0.7
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Node3D" parent="." instance=ExtResource("1_ms86o")]
+[node name="House" parent="." instance=ExtResource("1_ms86o")]
+
+[node name="StretchStart" type="Area3D" parent="House"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107441, 0.868538, -1.42447)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_8urfq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="House/StretchStart"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_dq8mr")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="House/StretchStart"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.270996)
+shape = SubResource("BoxShape3D_4cxh3")
+
+[node name="StretchEnd" type="Area3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107441, 0.868538, 1.45897)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_dq3c0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="House/StretchEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.270996)
+shape = SubResource("BoxShape3D_fq4sg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39885, 0)
 script = ExtResource("2_v134u")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43184, 0)
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92423, 1.34572, -5.33672)
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("2_aobv4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
@@ -55,7 +129,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572009, 0)
 script = ExtResource("3_ov8fn")
 
 [node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/RemoteTransform3D"]
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.2)
 collision_mask = 2
 hit_back_faces = false
 collide_with_areas = true
@@ -76,3 +150,6 @@ transform = Transform3D(0.988835, -0.0368878, 0.14438, 0, 0.968878, 0.24754, -0.
 visible = false
 light_color = Color(0.929412, 1, 1, 1)
 light_energy = 0.01
+
+[connection signal="body_entered" from="House/StretchStart" to="House/StretchStart" method="_on_body_entered"]
+[connection signal="body_entered" from="House/StretchEnd" to="House/StretchEnd" method="_on_body_entered"]

@@ -4,4 +4,4 @@ extends Area3D
 @export var dialogue = "hm, none of these seem interesting right now."
 
 func interact():
-	pass # Replace with function body.
+	GameState.show_dialogue.emit(dialogue)

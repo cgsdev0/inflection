@@ -87,6 +87,9 @@ transform = Transform3D(-1.09983, 0, 0.0191977, 0, 1.1, 0, -0.0191977, 0, -1.099
 [node name="MyDoor" parent="Walls" instance=ExtResource("3_u3iog")]
 transform = Transform3D(-0.999848, 0, 0.0174525, 0, 1.1, 0, -0.0174525, 0, -0.999848, -0.224095, -1.67338, -2.33394)
 
+[node name="StaticBody3D" parent="Walls/MyDoor/Hinge" index="1"]
+main_door = true
+
 [node name="InnerDoor2" parent="Walls" instance=ExtResource("3_u3iog")]
 transform = Transform3D(-0.0174524, 0, -0.999848, 0, 1.1, 0, 0.999848, 0, -0.0174524, -0.47798, -1.67338, -1.05015)
 
@@ -270,3 +273,5 @@ light_energy = 0.6
 shadow_enabled = true
 omni_range = 5.915
 omni_attenuation = 0.406126
+
+[editable path="Walls/MyDoor"]

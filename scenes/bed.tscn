@@ -1,8 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmcaynkpsvynl"]
+[gd_scene load_steps=6 format=3 uid="uid://bmcaynkpsvynl"]
 
 [ext_resource type="PackedScene" uid="uid://cw1phwieo4wym" path="res://props/bed.glb" id="1_ku1jm"]
+[ext_resource type="Script" path="res://scripts/bed.gd" id="2_wxi4h"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_hkti1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_smvnh"]
+size = Vector3(1.78259, 1.02789, 2.76059)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbb4v"]
+size = Vector3(2.01953, 1.56153, 2.92188)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Root Scene" parent="." instance=ExtResource("1_ku1jm")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.4986, 0, 1.01648)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0134888, 0.0139465, 1.51598)
+shape = SubResource("BoxShape3D_smvnh")
+
+[node name="Bed" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_wxi4h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0134888, 0.250365, 1.51598)
+shape = SubResource("BoxShape3D_sbb4v")
+
+[node name="CameraController" type="RemoteTransform3D" parent="Bed"]
+transform = Transform3D(0.0642854, -0.101968, 0.992708, -0.893738, 0.436667, 0.102729, -0.443958, -0.893826, -0.0630611, -0.185627, 0.852375, 0.537916)
+script = ExtResource("3_hkti1")
+
+[node name="Awake" type="RemoteTransform3D" parent="Bed"]
+transform = Transform3D(-0.939615, 0, 0.342233, 0, 1, 0, -0.342233, 0, -0.939615, -0.185627, 1.059, 0.690486)
+script = ExtResource("3_hkti1")
+
+[node name="Anchor" type="Node3D" parent="Bed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.629713, 0.997696)
