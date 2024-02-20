@@ -57,7 +57,10 @@ func panic_attack():
 	await GameState.dialogue_finished
 	# TODO: slower heart beat
 	await get_tree().create_timer(1.5).timeout
-	GameState.show_dialogue.emit("i think that's enough for today.")
+	if GameState.called:
+		GameState.show_dialogue.emit("...i think i'm about to faint.")
+	else:
+		GameState.show_dialogue.emit("i think that's enough for today.")
 	await GameState.dialogue_finished
 	GameState.start_fade.emit(true)
 	await GameState.fade_finished

@@ -3,10 +3,19 @@ extends Area3D
 var desc = "go outside"
 
 func end_game():
-	return
+	if !GameState.ended:
+		GameState.ended = true
+		GameState.game_end.emit()
+		$AnimationPlayer.play("open")
+		await GameState.fade_finished
+		await get_tree().create_timer(1.5).timeout
+		GameState.show_dialogue.emit("?thank you.<break>?for everything.")
+		await GameState.dialogue_finished
+		await get_tree().create_timer(1.5).timeout
+		GameState.show_credits.emit()
 	
 func interact():
-	if GameState.stretched && GameState.panic_attack:
+	if GameState.called || (GameState.stretched && GameState.panic_attack):
 		if !GameState.showered:
 			GameState.show_dialogue.emit([
 				"i smell awful.",

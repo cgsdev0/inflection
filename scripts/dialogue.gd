@@ -24,6 +24,11 @@ func show_next():
 	if lines[idx].begins_with(":"):
 		alt = true
 		%Operator.text = '"' + lines[idx].substr(1) + '"'
+	elif lines[idx].begins_with("?"):
+		add_theme_color_override("default_color", Color.BLACK)
+		z_index = 100
+		alt = false
+		text = '"' + lines[idx].substr(1) + '"'
 	else:
 		alt = false
 		text = '"' + lines[idx] + '"'

@@ -6,6 +6,7 @@ var picked
 var picked_loc
 var global_hint = ""
 var sequencing = false
+var ended = false
 
 var jebaited = false
 
@@ -56,3 +57,5 @@ signal stretch
 signal bedge_reset
 signal pickup_phone
 signal put_phone_down
+signal game_end
+signal show_credits

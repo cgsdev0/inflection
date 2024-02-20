@@ -66,6 +66,8 @@ func _update_mouselook():
 
 	
 func _process(delta):
+	if GameState.ended:
+		return
 	if !$RemoteTransform3D.active:
 		$OmniLight3D.hide()
 	else:

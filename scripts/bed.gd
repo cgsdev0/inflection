@@ -63,7 +63,8 @@ func zzzzzz():
 func zzzzzz2():
 	for node in get_tree().get_nodes_in_group("switches"):
 		node.reset()
-	GameState.showered = false
+	if !GameState.called:
+		GameState.showered = false
 	$CameraController.active = true
 	await get_tree().create_timer(2.0).timeout
 	start_sequence()
