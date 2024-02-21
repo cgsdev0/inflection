@@ -6,6 +6,8 @@ var lines = []
 func _ready():
 	GameState.show_dialogue.connect(show_dialogue)
 	hide_both()
+	
+var stripped
 
 func hide_both():
 	hide()
@@ -14,6 +16,11 @@ func hide_both():
 func show_both():
 	show()
 	%Operator.show()
+	
+func strip_bbcode(source: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("\\[.+?\\]")
+	return regex.sub(source, "", true)
 	
 var idx = 0
 var alt = false
@@ -33,6 +40,10 @@ func show_next():
 		alt = false
 		text = '"' + lines[idx] + '"'
 	idx += 1
+	if alt:
+		stripped = strip_bbcode(%Operator.text)
+	else:
+		stripped = strip_bbcode(text)
 	show_both()
 	
 func show_dialogue(t):
@@ -53,6 +64,7 @@ func resolve():
 	GameState.dialogue_finished.emit()
 	
 var tick = 0.0
+var delay = 0.05
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !visible:
@@ -66,6 +78,8 @@ func _process(delta):
 	if  Input.is_action_just_pressed("interact"):
 		if who.visible_characters < who.get_total_character_count():
 			who.visible_characters = who.get_total_character_count()
+			if !$AudioStreamPlayer.is_playing():
+				$AudioStreamPlayer.play()
 		else:
 			if idx >= lines.size():
 				hide_both()
@@ -74,6 +88,22 @@ func _process(delta):
 			else:
 				show_next()
 				return
-	if who.visible_characters < who.get_total_character_count() && tick > 0.05:
+	var next = stripped[max(0, min(who.visible_characters - 1, stripped.length() - 1))]
+	var from_end = who.get_total_character_count() - who.visible_characters
+	if from_end < 2:
+		delay = 0.04
+	else:
+		match next:
+			".":
+				delay = 0.4
+			",":
+				delay = 0.2
+			"?":
+				delay = 0.4
+			_:
+				delay = 0.04
+	if who.visible_characters < who.get_total_character_count() && tick > delay:
+		if !$AudioStreamPlayer.is_playing() && next != '"':
+			$AudioStreamPlayer.play()
 		tick = 0
 		who.visible_characters += 1

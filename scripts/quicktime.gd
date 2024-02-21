@@ -16,6 +16,7 @@ func trigger(label, difficult):
 	call_deferred("delayed_trigger", label, difficult)
 
 func delayed_trigger(label, difficult):
+	$Tick.play()
 	difficulty = difficult
 	stopped = false
 	$Label.anchor_left = 0.0
@@ -25,6 +26,10 @@ func delayed_trigger(label, difficult):
 	show()
 
 func resolve(result):
+	if result:
+		$Success.play()
+	else:
+		$Fail.play()
 	await get_tree().create_timer(1.0).timeout
 	hide()
 	GameState.quicktime_finish.emit(result)
@@ -36,7 +41,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("interact"):
 		print($Label.anchor_left - 0.5)
 		stopped = true
-		if abs($Label.anchor_left - 0.5) < 0.05:
+		if abs($Label.anchor_left - 0.5) < 0.042:
 			$Label.add_theme_color_override("font_color", Color.GREEN)
 			resolve(true)
 			return
@@ -47,10 +52,12 @@ func _process(delta):
 
 	$Label.anchor_left += delta * direction * difficulty * 0.5
 	if $Label.anchor_left > 1.0:
+		$Tick.play()
 		$Label.anchor_left = 1.0
 		direction = -1
 		stage += 1
 	if $Label.anchor_left < 0.0:
+		$Tick.play()
 		$Label.anchor_left = 0.0
 		stage += 1
 		

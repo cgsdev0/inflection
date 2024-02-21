@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://7ayk1xtukt3e"]
+[gd_scene load_steps=9 format=3 uid="uid://7ayk1xtukt3e"]
 
 [ext_resource type="Script" path="res://scripts/switch.gd" id="1_05x2e"]
+[ext_resource type="AudioStream" uid="uid://cc1nq6fh86yds" path="res://sounds/switch_on.wav" id="2_bj1wo"]
+[ext_resource type="AudioStream" uid="uid://bgrujwgasoup" path="res://sounds/switch_off.wav" id="3_k7uhd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr5vi"]
 resource_name = "mat21"
@@ -99,3 +101,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0412152)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0459151, 0.0412152)
 
 [node name="Anchor" type="Node3D" parent="."]
+
+[node name="OnSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_bj1wo")
+volume_db = -3.0
+unit_size = 5.0
+max_db = -3.0
+
+[node name="OffSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_k7uhd")
+volume_db = -3.0
+unit_size = 5.0
+max_db = -3.0

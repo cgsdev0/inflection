@@ -72,10 +72,16 @@ func _process(delta):
 		$OmniLight3D.hide()
 	else:
 		$OmniLight3D.show()
-	if GameState.in_dialogue:
+	if GameState.in_dialogue || GameState.holding_phone:
 		velocity = Vector3.ZERO
 		speed = 0
+		$Footsteps.stop()
 		return
+	elif speed > 0.0:
+		if !$Footsteps.is_playing():
+			$Footsteps.play()
+	else:
+		$Footsteps.stop()
 	var desired = Vector3.ZERO
 	if !$RemoteTransform3D.active || $RemoteTransform3D.lerpTimer < 1.0:
 		GameState.picked = null

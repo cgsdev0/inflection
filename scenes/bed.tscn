@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmcaynkpsvynl"]
+[gd_scene load_steps=7 format=3 uid="uid://bmcaynkpsvynl"]
 
 [ext_resource type="PackedScene" uid="uid://cw1phwieo4wym" path="res://props/bed.glb" id="1_ku1jm"]
 [ext_resource type="Script" path="res://scripts/bed.gd" id="2_wxi4h"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_hkti1"]
+[ext_resource type="AudioStream" uid="uid://b7ob6svogf1c0" path="res://sounds/alarm.wav" id="4_ffmnm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_smvnh"]
 size = Vector3(1.78259, 1.02789, 2.76059)
@@ -40,3 +41,11 @@ script = ExtResource("3_hkti1")
 
 [node name="Anchor" type="Node3D" parent="Bed"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.629713, 0.997696)
+
+[node name="Alarm" type="AudioStreamPlayer3D" parent="Bed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.813157, 0.878606, 0.644394)
+stream = ExtResource("4_ffmnm")
+volume_db = -16.0
+unit_size = 20.47
+max_db = -8.0
+area_mask = 0

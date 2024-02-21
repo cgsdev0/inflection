@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dbcyua68dk01v"]
+[gd_scene load_steps=19 format=3 uid="uid://dbcyua68dk01v"]
 
 [ext_resource type="PackedScene" uid="uid://cws05nll1aipa" path="res://scenes/apartment.tscn" id="1_ms86o"]
 [ext_resource type="Script" path="res://scripts/stretch.gd" id="2_8urfq"]
@@ -8,6 +8,22 @@
 [ext_resource type="Script" path="res://scripts/unpack.gd" id="3_drxd2"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_ov8fn"]
 [ext_resource type="PackedScene" uid="uid://b4k3y4vf34thn" path="res://scenes/phone.tscn" id="8_qnqu2"]
+[ext_resource type="AudioStream" uid="uid://6ew23nbl15md" path="res://sounds/footsteps.wav" id="9_15iie"]
+
+[sub_resource type="Animation" id="Animation_a7aqr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_7lxvk"]
 resource_name = "stretch"
@@ -23,21 +39,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(3.73213, 1),
 "update": 0,
 "values": [Vector3(1, 1, 1), Vector3(1, 1, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_a7aqr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dq8mr"]
@@ -129,6 +130,7 @@ transform = Transform3D(0.492424, -4.3049e-08, 0.870356, -8.74228e-08, -1, 0, 0.
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39885, 0)
+current = true
 script = ExtResource("2_v134u")
 
 [node name="PhoneAnchor" type="Node3D" parent="Camera3D"]
@@ -160,6 +162,12 @@ light_color = Color(0.462745, 0.462745, 0.462745, 1)
 light_energy = 0.05
 omni_range = 2.0
 omni_attenuation = 0.31864
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70622, 0)
+stream = ExtResource("9_15iie")
+volume_db = -6.0
+max_db = -4.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_il7iu")

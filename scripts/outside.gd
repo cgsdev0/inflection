@@ -8,8 +8,8 @@ func end_game():
 		GameState.game_end.emit()
 		$AnimationPlayer.play("open")
 		await GameState.fade_finished
-		await get_tree().create_timer(1.5).timeout
-		GameState.show_dialogue.emit("?thank you.<break>?for everything.")
+		await get_tree().create_timer(3.5).timeout
+		GameState.show_dialogue.emit("?...<break>?i forgot how peaceful it is out here.<break>?maybe i'll be okay after all.")
 		await GameState.dialogue_finished
 		await get_tree().create_timer(1.5).timeout
 		GameState.show_credits.emit()

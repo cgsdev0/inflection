@@ -30,4 +30,8 @@ func update():
 			
 func interact():
 	enabled = !enabled
+	if enabled:
+		$OnSound.play()
+	else:
+		$OffSound.play()
 	update()

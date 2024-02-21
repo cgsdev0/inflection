@@ -12,6 +12,7 @@ func _ready():
 	
 func start_sequence():
 	await get_tree().create_timer(2.0).timeout
+	$Alarm.play()
 	GameState.start_fade.emit(false)
 	await GameState.fade_finished
 	settled_in()
@@ -22,16 +23,19 @@ func settled_in():
 	
 func _process(delta):
 	if rdy && Input.is_action_just_pressed("skip") && OS.is_debug_build():
+		$Alarm.stop()
 		rdy = false
 		GameState.global_hint = ""
 		get_tree().get_first_node_in_group("player").activate_camera()
 		
 	if rdy && Input.is_action_just_pressed("interact"):
+		$Alarm.stop()
 		rdy = false
 		GameState.global_hint = ""
 		call_deferred("get_up")
 		
 func get_up():
+	await get_tree().create_timer(1.0).timeout
 	GameState.quicktime.emit("Get out of bed!", 1.0)
 	var result = await GameState.quicktime_finish
 	if result:
@@ -79,6 +83,7 @@ func wake_up():
 		"i feel like shit. i should probably get up though..."
 		].pick_random())
 	await GameState.dialogue_finished
+	await get_tree().create_timer(1.0).timeout
 	GameState.quicktime.emit("Get out of bed!", randf_range(1.2, 1.9))
 	var result = await GameState.quicktime_finish
 	if result:

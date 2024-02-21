@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnsahh5mrdtgt"]
+[gd_scene load_steps=27 format=3 uid="uid://bnsahh5mrdtgt"]
 
 [ext_resource type="Shader" path="res://shaders/post.gdshader" id="1_4okf4"]
 [ext_resource type="PackedScene" uid="uid://dbcyua68dk01v" path="res://scenes/main.tscn" id="2_lyvaf"]
@@ -9,7 +9,11 @@
 [ext_resource type="Script" path="res://scripts/global_hint.gd" id="5_mhxef"]
 [ext_resource type="Script" path="res://scripts/dialogue.gd" id="6_wg7np"]
 [ext_resource type="Script" path="res://scripts/fader.gd" id="7_d32t2"]
+[ext_resource type="AudioStream" uid="uid://bxy77b610qlwj" path="res://sounds/speak1.wav" id="8_axenn"]
 [ext_resource type="FontFile" uid="uid://bvenr82w5larw" path="res://fonts/gluten.ttf" id="10_m5m8n"]
+[ext_resource type="AudioStream" uid="uid://bb6l37ps770ea" path="res://sounds/quicktime.wav" id="10_mya2d"]
+[ext_resource type="AudioStream" uid="uid://dfrcw7xeniiss" path="res://sounds/success.wav" id="11_t07wm"]
+[ext_resource type="AudioStream" uid="uid://g3juqljrvc61" path="res://sounds/fail.wav" id="12_lbk5r"]
 
 [sub_resource type="FontVariation" id="FontVariation_tahyw"]
 base_font = ExtResource("3_5yvoq")
@@ -34,34 +38,6 @@ metadata/_snap_count = 19
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_h2yq1"]
 gradient = SubResource("Gradient_3raee")
-
-[sub_resource type="Animation" id="Animation_yyilt"]
-resource_name = "fade_out"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Fader:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Fader:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_0orin"]
 length = 0.001
@@ -140,6 +116,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_yyilt"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fader:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_jg7g4"]
@@ -233,6 +237,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+audio_listener_enable_3d = true
 size = Vector2i(720, 540)
 render_target_update_mode = 4
 
@@ -272,6 +277,10 @@ visible_characters_behavior = 1
 visible_ratio = 0.0
 script = ExtResource("6_wg7np")
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Dialogue"]
+stream = ExtResource("8_axenn")
+volume_db = -18.0
 
 [node name="Operator" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
@@ -356,6 +365,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Tick" type="AudioStreamPlayer" parent="Quicktime"]
+stream = ExtResource("10_mya2d")
+
+[node name="Success" type="AudioStreamPlayer" parent="Quicktime"]
+stream = ExtResource("11_t07wm")
+
+[node name="Fail" type="AudioStreamPlayer" parent="Quicktime"]
+stream = ExtResource("12_lbk5r")
 
 [node name="Fader" type="ColorRect" parent="."]
 layout_mode = 1

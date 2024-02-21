@@ -17,11 +17,11 @@ func on_press(child):
 		"Call":
 			if %Number.text.length() >= 8:
 				$Calling.show()
-				await get_tree().create_timer(3.0).timeout
 				if %Number.text == "555-0143" && !GameState.called:
 					sequence()
 					return
 				else:
+					await get_tree().create_timer(3.0).timeout
 					hang_up()
 					await get_tree().create_timer(1.0).timeout
 					GameState.show_dialogue.emit("no one answered...")
@@ -45,9 +45,10 @@ func soft_failure():
 	
 func sequence():
 	GameState.sequencing = true
+	await get_tree().create_timer(2.0).timeout
 	GameState.show_dialogue.emit("shit fuck, it's ringing")
 	await GameState.dialogue_finished
-	GameState.quicktime.emit("stay calm.", 2.0)
+	GameState.quicktime.emit("stay calm.", 1.5)
 	var result = await GameState.quicktime_finish
 	if !result:
 		soft_failure()
@@ -56,7 +57,7 @@ func sequence():
 	await get_tree().create_timer(1.0).timeout
 	GameState.show_dialogue.emit(":Hello?")
 	await GameState.dialogue_finished
-	GameState.quicktime.emit("stay calm.", 3.0)
+	GameState.quicktime.emit("stay calm.", 2.2)
 	result = await GameState.quicktime_finish
 	if !result:
 		soft_failure()
