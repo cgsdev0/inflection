@@ -41,7 +41,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("interact"):
 		print($Label.anchor_left - 0.5)
 		stopped = true
-		if abs($Label.anchor_left - 0.5) < 0.042:
+		if abs($Label.anchor_left - 0.5) < 0.048:
 			$Label.add_theme_color_override("font_color", Color.GREEN)
 			resolve(true)
 			return
