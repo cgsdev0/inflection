@@ -6,11 +6,13 @@ var seated = false
 # Called when the node enters the scene tree for the first time.
 func interact():
 	$CameraController.active = true
+	$Anchor/Down.play()
 	seated = true
 
 
 func get_up():
 	seated = false
+	$Anchor/Up.play()
 	$CameraController.previous_camera()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

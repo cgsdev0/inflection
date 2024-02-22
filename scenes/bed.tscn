@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmcaynkpsvynl"]
+[gd_scene load_steps=9 format=3 uid="uid://bmcaynkpsvynl"]
 
 [ext_resource type="PackedScene" uid="uid://cw1phwieo4wym" path="res://props/bed.glb" id="1_ku1jm"]
 [ext_resource type="Script" path="res://scripts/bed.gd" id="2_wxi4h"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_hkti1"]
 [ext_resource type="AudioStream" uid="uid://b7ob6svogf1c0" path="res://sounds/alarm.wav" id="4_ffmnm"]
+[ext_resource type="AudioStream" uid="uid://ctebv7uqqjxb3" path="res://sounds/bed.ogg" id="5_7jak5"]
+[ext_resource type="AudioStream" uid="uid://bvevx5odnvpgd" path="res://sounds/get_up.wav" id="6_1fj3l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_smvnh"]
 size = Vector3(1.78259, 1.02789, 2.76059)
@@ -49,3 +51,9 @@ volume_db = -16.0
 unit_size = 20.47
 max_db = -8.0
 area_mask = 0
+
+[node name="Sheets" type="AudioStreamPlayer" parent="Bed"]
+stream = ExtResource("5_7jak5")
+
+[node name="Sheets2" type="AudioStreamPlayer" parent="Bed"]
+stream = ExtResource("6_1fj3l")

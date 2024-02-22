@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcry85bv1yiuc"]
+[gd_scene load_steps=15 format=3 uid="uid://bcry85bv1yiuc"]
 
 [ext_resource type="Script" path="res://scripts/shower.gd" id="1_dsg3c"]
 [ext_resource type="PackedScene" uid="uid://b7ks8nnbpo8rc" path="res://props/shower.glb" id="1_rmsh4"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_rawqk"]
 [ext_resource type="Texture2D" uid="uid://bp0qgnpmdj53s" path="res://materials/smoke.png" id="4_4unk0"]
+[ext_resource type="AudioStream" uid="uid://mkbbdj5ii3l6" path="res://sounds/shower.wav" id="5_c72t1"]
+[ext_resource type="AudioStream" uid="uid://rrtb7d4drdlu" path="res://sounds/shower_handle.wav" id="6_ol6fg"]
+[ext_resource type="AudioStream" uid="uid://b82ym1flrqcon" path="res://sounds/heartbeat.wav" id="7_tu2x4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vc246"]
 size = Vector3(1.021, 1.11902, 0.575684)
@@ -82,3 +85,14 @@ emitting = false
 lifetime = 10.0
 process_material = SubResource("ParticleProcessMaterial_lpb4m")
 draw_pass_1 = SubResource("QuadMesh_f2d2y")
+
+[node name="WaterSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.197123, 0.552523, 0.709339)
+stream = ExtResource("5_c72t1")
+
+[node name="Handle" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21262, 0, 0.88473)
+stream = ExtResource("6_ol6fg")
+
+[node name="Heartbeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tu2x4")

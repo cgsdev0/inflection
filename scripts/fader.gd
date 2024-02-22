@@ -14,6 +14,10 @@ func start_fade_white():
 	$AnimationPlayer.play("fade_white")
 	await $AnimationPlayer.animation_finished
 	GameState.fade_finished.emit()
+	$Birds.volume_db = -30.0
+	$Birds.play()
+	var tween = get_tree().create_tween()
+	tween.tween_property($Birds, "volume_db", -10.0, 4.0)
 	
 func start_fade(out):
 	if out:

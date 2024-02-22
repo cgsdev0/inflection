@@ -4,7 +4,7 @@ extends Area3D
 
 func undo_stretch():
 	GameState.show_dialogue.emit([
-		"oh man, i feel dizzy...<break>today just doesn't feel possible.<break>... shit.",
+		"oh man, i feel really dizzy...<break>i think i need to go lie back down.<break>... shit.",
 	].pick_random())
 	await GameState.dialogue_finished
 	GameState.start_fade.emit(true)

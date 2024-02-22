@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4k3y4vf34thn"]
+[gd_scene load_steps=10 format=3 uid="uid://b4k3y4vf34thn"]
 
 [ext_resource type="Material" uid="uid://cpm5io36ldutu" path="res://materials/phone_on.tres" id="1_4ucm2"]
 [ext_resource type="Script" path="res://scripts/phone.gd" id="1_oletq"]
 [ext_resource type="PackedScene" uid="uid://c33uu82350sxo" path="res://props/phone3.glb" id="1_rryxk"]
 [ext_resource type="PackedScene" uid="uid://cfhxj7bxiopth" path="res://scenes/phone_screen.tscn" id="2_7kihe"]
+[ext_resource type="AudioStream" uid="uid://g3ylestw60op" path="res://sounds/dial_tone.mp3" id="5_rlw0y"]
+[ext_resource type="AudioStream" uid="uid://lq5255t2ow2f" path="res://sounds/phone_up.wav" id="6_5d8a6"]
+[ext_resource type="AudioStream" uid="uid://dmg0tqearux1q" path="res://sounds/phone_down.wav" id="7_uylif"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u3gay"]
 size = Vector3(0.1, 0.1, 0.150061)
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ibqvk"]
+mix_rate = 11025.0
+buffer_length = 0.15
 
 [node name="Node3D" type="Area3D"]
 collision_layer = 3
@@ -37,5 +44,26 @@ shape = SubResource("BoxShape3D_u3gay")
 
 [node name="Anchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0382859, 0)
+
+[node name="DialTone" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_rlw0y")
+unit_size = 0.5
+max_db = 0.0
+max_distance = 1.0
+
+[node name="PhoneUp" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_5d8a6")
+max_db = 0.0
+
+[node name="PhoneDown" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_uylif")
+max_db = 0.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamGenerator_ibqvk")
+volume_db = -20.0
+unit_size = 0.5
+max_db = -15.0
+max_distance = 1.0
 
 [editable path="phone3"]

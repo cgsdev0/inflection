@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq2k28rdpk1ta"]
+[gd_scene load_steps=6 format=3 uid="uid://bq2k28rdpk1ta"]
 
 [ext_resource type="PackedScene" uid="uid://bsoa04lcujhju" path="res://props/toilet.glb" id="1_8w6j4"]
 [ext_resource type="Script" path="res://scripts/toilet.gd" id="2_ke2q6"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_3fksw"]
+[ext_resource type="AudioStream" uid="uid://dtxxvmyawo2mf" path="res://sounds/flush.wav" id="4_hh5oy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2gw8e"]
 size = Vector3(0.724976, 1.11464, 0.586304)
@@ -26,3 +27,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.740832, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000359774, 0.390409, -0.0206529)
 shape = SubResource("BoxShape3D_2gw8e")
+
+[node name="Flush" type="AudioStreamPlayer3D" parent="Area3D"]
+stream = ExtResource("4_hh5oy")
+volume_db = -21.332
+unit_size = 6.19
+max_db = -4.641
+max_distance = 8.0

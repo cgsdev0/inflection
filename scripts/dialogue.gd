@@ -78,8 +78,8 @@ func _process(delta):
 	if  Input.is_action_just_pressed("interact"):
 		if who.visible_characters < who.get_total_character_count():
 			who.visible_characters = who.get_total_character_count()
-			if !$AudioStreamPlayer.is_playing():
-				$AudioStreamPlayer.play()
+			if !who.get_node("AudioStreamPlayer").is_playing():
+				who.get_node("AudioStreamPlayer").play()
 		else:
 			if idx >= lines.size():
 				hide_both()
@@ -103,7 +103,7 @@ func _process(delta):
 			_:
 				delay = 0.04
 	if who.visible_characters < who.get_total_character_count() && tick > delay:
-		if !$AudioStreamPlayer.is_playing() && next != '"':
-			$AudioStreamPlayer.play()
+		if !who.get_node("AudioStreamPlayer").is_playing() && next != '"':
+			who.get_node("AudioStreamPlayer").play()
 		tick = 0
 		who.visible_characters += 1

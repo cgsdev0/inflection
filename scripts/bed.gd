@@ -50,7 +50,7 @@ func back_to_sleep():
 		"fuck this. i'm going back to sleep.", 
 		"my heart is pounding like crazy. maybe i should sleep a bit more...",
 		"it's honestly just not fair.",
-		"...<break>it should have been me.",
+		"maybe just five more minutes.",
 		"one more snooze. then i'll start my day.",
 		"urrgghghh... nope. not happening."
 		].pick_random())
@@ -58,6 +58,7 @@ func back_to_sleep():
 	zzzzzz()
 	
 func zzzzzz():
+	$Sheets.play()
 	$CameraController.active = true
 	await get_tree().create_timer(1.0).timeout
 	GameState.start_fade.emit(true)
@@ -74,6 +75,7 @@ func zzzzzz2():
 	start_sequence()
 	
 func wake_up():
+	$Sheets.play()
 	$Awake.active = true
 	await get_tree().create_timer(1.0).timeout
 	GameState.show_dialogue.emit([
@@ -87,6 +89,7 @@ func wake_up():
 	GameState.quicktime.emit("Get out of bed!", randf_range(1.2, 1.9))
 	var result = await GameState.quicktime_finish
 	if result:
+		$Sheets2.play()
 		get_tree().get_first_node_in_group("player").activate_camera()
 		if !GameState.stretched:
 			await get_tree().create_timer(1.0).timeout
@@ -98,6 +101,7 @@ func wake_up():
 		back_to_sleep()
 	
 func interact():
+	$Sheets.play()
 	$CameraController.active = true
 	await get_tree().create_timer(2.0).timeout
 	GameState.show_dialogue.emit([

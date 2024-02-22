@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxmucfv0g1p27"]
+
+[ext_resource type="Script" path="res://scripts/couch.gd" id="1_04otf"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_xutj0"]
+[ext_resource type="AudioStream" uid="uid://cnj1ieeo3gt4j" path="res://sounds/couch_down.wav" id="3_mppj4"]
+[ext_resource type="AudioStream" uid="uid://kf4q5xgptejn" path="res://sounds/couch_up.wav" id="4_mp23n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pjgl8"]
+size = Vector3(0.724976, 1.11464, 0.522217)
+
+[node name="Area3D" type="Area3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_04otf")
+
+[node name="CameraController" type="RemoteTransform3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4732, 1.05384, 0.981921)
+script = ExtResource("2_xutj0")
+
+[node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64861, 0.536505, 0.947201)
+
+[node name="Down" type="AudioStreamPlayer3D" parent="Anchor"]
+stream = ExtResource("3_mppj4")
+max_db = 0.0
+
+[node name="Up" type="AudioStreamPlayer3D" parent="Anchor"]
+stream = ExtResource("4_mp23n")
+max_db = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45259, 0.390409, 0.846279)
+shape = SubResource("BoxShape3D_pjgl8")

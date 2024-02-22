@@ -10,6 +10,7 @@ func interact():
 
 
 func get_up():
+	$Flush.play()
 	seated = false
 	$CameraController.previous_camera()
 	

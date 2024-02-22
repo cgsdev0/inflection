@@ -6,6 +6,7 @@ func end_game():
 	if !GameState.ended:
 		GameState.ended = true
 		GameState.game_end.emit()
+		$Open.play()
 		$AnimationPlayer.play("open")
 		await GameState.fade_finished
 		await get_tree().create_timer(3.5).timeout

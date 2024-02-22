@@ -15,4 +15,4 @@ var only = false
 func _on_body_entered(body):
 	if !only:
 		only = true
-		GameState.show_dialogue.emit("i really need to finish sorting through this stuff.<break>the memories are just too cruel...")
+		GameState.show_dialogue.emit("i really need to finish sorting through this stuff.<break>but i'm not really using this room anyways, so...")

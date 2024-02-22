@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://dbcyua68dk01v"]
+[gd_scene load_steps=20 format=3 uid="uid://dbcyua68dk01v"]
 
 [ext_resource type="PackedScene" uid="uid://cws05nll1aipa" path="res://scenes/apartment.tscn" id="1_ms86o"]
 [ext_resource type="Script" path="res://scripts/stretch.gd" id="2_8urfq"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_aobv4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_v134u"]
+[ext_resource type="AudioStream" uid="uid://buu34lmesoetj" path="res://sounds/woodblock.wav" id="3_4bvox"]
 [ext_resource type="Script" path="res://scripts/stretch_end.gd" id="3_dq3c0"]
 [ext_resource type="Script" path="res://scripts/unpack.gd" id="3_drxd2"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_ov8fn"]
@@ -27,7 +28,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7lxvk"]
 resource_name = "stretch"
-length = 7.0
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -35,10 +36,24 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 7),
-"transitions": PackedFloat32Array(3.73213, 1),
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(3.73213, 1.23114),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 1, 10)]
+"values": [Vector3(1, 1, 1), Vector3(0.8, 0.8, 8)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%StretchStart/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dq8mr"]
@@ -103,6 +118,9 @@ libraries = {
 [node name="CollisionShape3D" type="CollisionShape3D" parent="House/StretchStart"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.270996)
 shape = SubResource("BoxShape3D_4cxh3")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="House/StretchStart"]
+stream = ExtResource("3_4bvox")
 
 [node name="Unpack" type="Area3D" parent="House"]
 transform = Transform3D(-0.0604911, 0, -0.998169, 0, 1, 0, 0.998169, 0, -0.0604911, -2.42752, 0.868538, -1.77976)

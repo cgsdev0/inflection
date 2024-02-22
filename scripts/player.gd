@@ -67,6 +67,7 @@ func _update_mouselook():
 	
 func _process(delta):
 	if GameState.ended:
+		$Footsteps.stop()
 		return
 	if !$RemoteTransform3D.active:
 		$OmniLight3D.hide()
@@ -85,6 +86,8 @@ func _process(delta):
 	var desired = Vector3.ZERO
 	if !$RemoteTransform3D.active || $RemoteTransform3D.lerpTimer < 1.0:
 		GameState.picked = null
+		speed = 0.0
+		$Footsteps.stop()
 		return
 	_update_mouselook()
 	pick_things()

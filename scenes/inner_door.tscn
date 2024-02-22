@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://dfhlcigtmr66d"]
+[gd_scene load_steps=25 format=3 uid="uid://dfhlcigtmr66d"]
 
 [ext_resource type="PackedScene" uid="uid://4egtknhrh3fw" path="res://props/inner_door.glb" id="1_tbtq3"]
 [ext_resource type="Material" uid="uid://q78i7o58b11c" path="res://materials/landlord_special.tres" id="1_tg2rp"]
 [ext_resource type="Script" path="res://scripts/inner_door.gd" id="3_22t8x"]
+[ext_resource type="AudioStream" uid="uid://drs32qkgdsg3v" path="res://sounds/door_close.wav" id="4_q1hjf"]
+[ext_resource type="AudioStream" uid="uid://bnm1jnnydjvjj" path="res://sounds/door_open.wav" id="5_itupm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tl4hf"]
 resource_name = "07___Default"
@@ -256,6 +258,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody3D/Close")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xa70d"]
 resource_name = "open"
@@ -283,6 +299,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody3D/Open")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1sxp1"]
@@ -367,6 +397,14 @@ shape = SubResource("BoxShape3D_asqau")
 
 [node name="Anchor" type="Node3D" parent="Hinge/StaticBody3D"]
 transform = Transform3D(1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, -79.9333, 95.1242, 1.29745)
+
+[node name="Close" type="AudioStreamPlayer3D" parent="Hinge/StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -27.6562, 111.839, 0)
+stream = ExtResource("4_q1hjf")
+
+[node name="Open" type="AudioStreamPlayer3D" parent="Hinge/StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -27.6562, 111.839, 0)
+stream = ExtResource("5_itupm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 3

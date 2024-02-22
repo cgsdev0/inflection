@@ -1,7 +1,8 @@
-[gd_scene load_steps=52 format=3 uid="uid://cpdy2gf0d6w4l"]
+[gd_scene load_steps=53 format=3 uid="uid://cpdy2gf0d6w4l"]
 
 [ext_resource type="Material" uid="uid://q78i7o58b11c" path="res://materials/landlord_special.tres" id="1_005i6"]
 [ext_resource type="Script" path="res://scripts/outside.gd" id="2_plkra"]
+[ext_resource type="AudioStream" uid="uid://cuxlnu7maexkw" path="res://sounds/outside_door.wav" id="3_7wv6e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tl4hf"]
 resource_name = "07___Default"
@@ -856,6 +857,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.8617, 97.5124, 2.38851)
 libraries = {
 "": SubResource("AnimationLibrary_75ujm")
 }
+
+[node name="Open" type="AudioStreamPlayer3D" parent="Hinge"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 108.944, 0)
+stream = ExtResource("3_7wv6e")
+max_db = 0.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
